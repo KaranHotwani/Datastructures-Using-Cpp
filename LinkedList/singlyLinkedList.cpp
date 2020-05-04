@@ -55,6 +55,27 @@ void insertPosition(Node* &temp,int pos)
     temp2->next = temp;
     Node:: nodeCount++;
 }
+
+void deleteNode(int pos)
+{
+     Node* temp = head;
+    if(pos==1)
+    {
+        head = head->next;
+        delete temp;
+        Node::nodeCount--;
+        return;
+    }
+    for(int i=1;i< pos-1;i++)
+    {
+        temp = temp->next; 
+    }
+    Node* temp2 = temp->next;
+    temp ->next = temp2->next;
+    delete temp2;
+    Node::nodeCount--;
+    
+}
 void printLinkedList(){
     Node* temp1 = head;
     while(temp1!=NULL)
@@ -74,6 +95,7 @@ int main()
         cout << "1.Insert\n";
         cout << "2.Print\n";
         cout << "3.Print Node Count\n";
+        cout << "4.Delete Node\n";
         cout << "0.Quit\n";
         cin >> choice;
         switch(choice)
@@ -126,6 +148,14 @@ int main()
             case 3:
             {
                 cout << "Node Count is  "<< Node:: nodeCount << endl;
+            }
+            break;
+            case 4:
+            {
+                int pos;
+                cout << "Enter Position\n";
+                cin >> pos;
+                deleteNode(pos);
             }
         }
     } while(choice!=0);
