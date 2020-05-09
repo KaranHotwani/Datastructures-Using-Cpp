@@ -76,6 +76,40 @@ void deleteNode(int pos)
     Node::nodeCount--;
     
 }
+
+void reverseListIterative(){
+    Node* temp;
+    Node* current;
+    Node *nex;
+
+    temp = head;
+    nex = temp->next;
+    temp->next = NULL;
+
+    while(nex->next!=NULL)
+    {
+        current = nex;
+        nex=current->next;
+        current->next=temp;
+        temp=current;
+    }
+    nex->next=temp;
+    head = nex;
+
+
+
+}
+void reverseRecursive(Node* temp){
+
+    if(temp->next == NULL)
+    {
+        head = temp;
+        return;
+    }
+    reverseRecursive(temp->next);
+    temp->next->next=temp;
+    temp->next=NULL;
+}
 void printLinkedList(){
     Node* temp1 = head;
     while(temp1!=NULL)
@@ -96,6 +130,7 @@ int main()
         cout << "2.Print\n";
         cout << "3.Print Node Count\n";
         cout << "4.Delete Node\n";
+        cout << "5.Reverse\n";
         cout << "0.Quit\n";
         cin >> choice;
         switch(choice)
@@ -157,6 +192,14 @@ int main()
                 cin >> pos;
                 deleteNode(pos);
             }
+            break;
+            case 5:
+            {
+                // reverseListIterative();
+                reverseRecursive(head);
+                
+            }
+            break;
         }
     } while(choice!=0);
     
