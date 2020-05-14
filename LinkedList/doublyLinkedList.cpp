@@ -111,7 +111,6 @@ int main()
         cout << "2.Print\n";
         cout << "3.Insert at position\n";
         cout << "4.Delete Node\n";
-        // cout << "5.Reverse\n";
         cout << "0.Quit\n";
         cin >> choice;
         switch(choice)
