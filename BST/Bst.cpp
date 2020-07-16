@@ -62,12 +62,65 @@ bool search(Node* root,int data){
     }
     else if(data<root->data)
     {
-        search(root->left,data);
+        return search(root->left,data);
     }
     else{
-        search(root->right,data);
+        return search(root->right,data);
     }
 }
+
+Node* findMin(Node* root)
+{
+    while(root->left!=NULL)
+    {
+        root =  root-> left;
+    }
+    return root;
+}
+
+Node* deleteNode(Node* root,int data)
+{
+    if(root==NULL) return root;
+    if(data<root->data) root->left = deleteNode(root->left,data);
+    else if(data>root->data) root->right = deleteNode(root->right,data);
+    else
+    {
+        if(root->left==NULL && root->right==NULL)//leaf node
+        {
+            delete root;
+            root = NULL;
+        }
+        else if(root->left==NULL)//one child
+        {
+            Node* temp = root;
+            root = root->right;
+            delete temp;
+            
+        }
+        else if(root->right==NULL)
+        {
+            Node* temp = root;
+            root = root->left;
+            delete temp;
+            
+        }
+        else //two children
+        {
+            Node* temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = deleteNode(root->right,temp->data);
+        }
+    }
+    return root;
+}
+void Inorder(Node *root) {
+	if(root == NULL) return;
+ 
+	Inorder(root->left);       //Visit left subtree
+	printf("%d ",root->data);  //Print data
+	Inorder(root->right);      // Visit right subtree
+}
+
 int main()
 {
     Node* root = NULL;
@@ -104,7 +157,15 @@ int main()
             }
             break;
             case 3:
-            {}
+            {
+                int data;
+                cout << "Insert Element to be Deleted \n";
+                cin >> data;
+                root = deleteNode(root,data);
+                cout<<"Inorder: ";
+                Inorder(root);
+                cout<<"\n";
+            }
             break;
             case 4:
             {
